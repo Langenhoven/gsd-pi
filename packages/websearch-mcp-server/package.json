@@ -1,0 +1,64 @@
+{
+  "name": "@gsd/websearch-mcp-server",
+  "version": "1.0.2",
+  "description": "MCP server for web search via DuckDuckGo (no API key required)",
+  "license": "MIT",
+  "gsd": {
+    "linkable": true,
+    "scope": "@gsd",
+    "name": "websearch-mcp-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-gsd/gsd-pi.git",
+    "directory": "packages/websearch-mcp-server"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./search-duckduckgo": {
+      "types": "./dist/search-duckduckgo.d.ts",
+      "import": "./dist/search-duckduckgo.js"
+    },
+    "./rate-limiter": {
+      "types": "./dist/rate-limiter.d.ts",
+      "import": "./dist/rate-limiter.js"
+    }
+  },
+  "bin": {
+    "gsd-websearch-mcp-server": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "node ../../scripts/clean-package-dist.cjs && tsc --incremental false",
+    "build:test": "tsc -p tsconfig.test.json",
+    "test": "pnpm run build:test && node --test dist/rate-limiter.test.js dist/search-duckduckgo.test.js dist/server.test.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "cheerio": "^1.0.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ]
+}

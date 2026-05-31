@@ -265,6 +265,29 @@ gsd config
 
 This writes `~/.gsd/agent/models.json` for you. See [Custom Models](custom-models.md) for manual setup.
 
+## WebSearch MCP Server
+
+GSD ships a built-in web search feature powered by DuckDuckGo — no API key, no registration, no configuration required. It works out-of-the-box for every user.
+
+### Tools
+
+- **`web_search`** — Search the web using DuckDuckGo. Supports query, count (1–20), freshness filtering, and site restriction.
+- **`web_search_fetch`** — Fetch and extract readable text content from any URL.
+
+Both tools are automatically registered when you start a GSD session.
+
+### Rate Limiting
+
+Rate-limited to 1 request/second by default. Configure via `WEBSEARCH_RATE_LIMIT_RPM` (requests per 60-second window):
+
+```bash
+export WEBSEARCH_RATE_LIMIT_RPM=30
+```
+
+### Native Search Awareness
+
+When using an Anthropic provider with native `web_search_20250305`, the MCP search tools are hidden to avoid duplicate capabilities. They reappear when switching to a non-Anthropic provider.
+
 ## Verifying Your Setup
 
 1. Launch GSD: `gsd`

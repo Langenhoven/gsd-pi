@@ -1,0 +1,11 @@
+{
+  "id": "websearch-mcp",
+  "name": "WebSearch MCP",
+  "version": "1.0.0",
+  "description": "Free web search via DuckDuckGo — no API key required. Provides web_search and web_search_fetch tools.",
+  "tier": "bundled",
+  "provides": {
+    "tools": ["web_search", "web_search_fetch"],
+    "hooks": ["session_start", "session_shutdown", "model_select"]
+  }
+}

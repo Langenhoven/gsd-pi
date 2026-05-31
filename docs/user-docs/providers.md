@@ -24,6 +24,8 @@ Step-by-step setup instructions for every LLM provider GSD supports. If you ran 
   - [SGLang](#sglang)
 - [Custom OpenAI-Compatible Endpoints](#custom-openai-compatible-endpoints)
 - [Common Pitfalls](#common-pitfalls)
+- [WebSearch MCP Server](#websearch-mcp-server)
+- [Common Pitfalls](#common-pitfalls)
 - [Verifying Your Setup](#verifying-your-setup)
 
 ## Quick Reference
@@ -557,6 +559,38 @@ Use `"qwen-chat-template"` instead if the server requires `chat_template_kwargs.
 For the full reference on `compat` fields, `modelOverrides`, value resolution, and advanced configuration, see [Custom Models](./custom-models.md).
 
 ---
+
+## WebSearch MCP Server
+
+GSD ships a built-in web search feature powered by DuckDuckGo — no API key, no registration, no configuration required. It works out-of-the-box for every user.
+
+### How It Works
+
+The WebSearch MCP server provides two tools to the coding agent:
+
+- **`web_search`** — Search the web using DuckDuckGo's free HTML endpoint. Supports query, count (1–20), freshness filtering (day/week/month/year), and site restriction.
+- **`web_search_fetch`** — Fetch and extract readable text content from any URL. Handles HTML (tag stripping), JSON, XML, and plain text. Returns content type, length, and truncation status.
+
+Both tools are automatically registered when you start a GSD session — no manual MCP configuration needed.
+
+### Rate Limiting
+
+To protect against DuckDuckGo's bot detection, the search tool is rate-limited to 1 request per second by default. If exceeded, the tool returns a `rate_limited` error with a `retryAfterMs` field indicating when to retry.
+
+Configure the rate limit via the `WEBSEARCH_RATE_LIMIT_RPM` environment variable (requests per 60-second window):
+
+```bash
+# Allow 30 requests per minute (1 per 2 seconds)
+export WEBSEARCH_RATE_LIMIT_RPM=30
+```
+
+### When Native Anthropic Search Is Active
+
+When the active model provider is Anthropic (which has built-in `web_search_20250305`), the MCP `web_search` and `web_search_fetch` tools are automatically hidden to avoid duplicate search capabilities. They reappear when you switch to a non-Anthropic provider.
+
+### Relation to Other Search Providers
+
+The DuckDuckGo-backed web search is completely independent of the existing search providers (Brave, Tavily, Ollama, Google). Both can coexist — the agent chooses which tool to use based on the task. Existing search providers require API keys and are accessed through their own separate tooling; the WebSearch MCP server is always available as a free fallback.
 
 ## Common Pitfalls
 

@@ -23,6 +23,7 @@
   - [vLLM](#vllm)
   - [SGLang](#sglang)
 - [自定义 OpenAI-Compatible Endpoints](#custom-openai-compatible-endpoints)
+- [WebSearch MCP 服务器](#websearch-mcp-server)
 - [常见坑点](#common-pitfalls)
 - [验证你的配置](#verifying-your-setup)
 
@@ -577,6 +578,39 @@ gsd config
 关于 `compat` 字段、`modelOverrides`、值解析和高级配置的完整说明，见 [自定义模型](./custom-models.md)。
 
 ---
+
+<a id="websearch-mcp-server"></a>
+## WebSearch MCP 服务器
+
+GSD 内置了由 DuckDuckGo 驱动的网页搜索功能——无需 API key、无需注册、无需任何配置。每个用户开箱即用。
+
+### 工作原理
+
+WebSearch MCP 服务器为编码助手提供两个工具：
+
+- **`web_search`** — 使用 DuckDuckGo 的免费 HTML 端点进行网页搜索。支持查询、数量（1–20）、时效过滤（日/周/月/年）和站点限制。
+- **`web_search_fetch`** — 获取并提取任意 URL 的可读文本内容。支持 HTML（去除标签）、JSON、XML 和纯文本。返回内容类型、长度和截断状态。
+
+启动 GSD 会话时，这两个工具会自动注册——无需手动配置 MCP。
+
+### 频率限制
+
+为防止触发 DuckDuckGo 的机器人检测，搜索工具默认限制为每秒 1 个请求。超出限制时，工具会返回 `rate_limited` 错误，其中包含 `retryAfterMs` 字段指示重试时间。
+
+通过 `WEBSEARCH_RATE_LIMIT_RPM` 环境变量配置频率限制（每 60 秒窗口的请求数）：
+
+```bash
+# 允许每分钟 30 个请求（每 2 秒 1 个）
+export WEBSEARCH_RATE_LIMIT_RPM=30
+```
+
+### 当 Anthropic 原生搜索激活时
+
+当活动模型提供商是 Anthropic（具有内置的 `web_search_20250305`）时，MCP `web_search` 和 `web_search_fetch` 工具会自动隐藏，以避免重复的搜索能力。切换到非 Anthropic 提供商时，它们会重新出现。
+
+### 与其他搜索提供商的关系
+
+基于 DuckDuckGo 的网页搜索完全独立于现有的搜索提供商（Brave、Tavily、Ollama、Google）。两者可以共存——编码助手根据任务选择使用哪个工具。现有搜索提供商需要 API key，通过各自的独立工具访问；WebSearch MCP 服务器始终作为免费的后备方案可用。
 
 <a id="common-pitfalls"></a>
 ## 常见坑点
