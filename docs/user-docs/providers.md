@@ -32,6 +32,8 @@ Step-by-step setup instructions for every LLM provider GSD supports. If you ran 
 |----------|-------------|-------------|-------------|
 | Anthropic | API key | `ANTHROPIC_API_KEY` | — |
 | OpenAI | API key | `OPENAI_API_KEY` | — |
+| OpenCode Zen | API key | `OPENCODE_API_KEY` | — |
+| OpenCode Go | API key | `OPENCODE_API_KEY` | — |
 | Google Gemini | API key | `GEMINI_API_KEY` | — |
 | OpenRouter | API key | `OPENROUTER_API_KEY` | Optional `models.json` |
 | Groq | API key | `GROQ_API_KEY` | — |
@@ -254,6 +256,26 @@ export MISTRAL_API_KEY="..."
 ```
 
 **Get a key:** [console.mistral.ai/api-keys](https://console.mistral.ai/api-keys)
+
+### OpenCode Zen / OpenCode Go
+
+OpenCode Zen offers a catalog of frontier models (Claude, GPT, Gemini, DeepSeek, GLM, MiniMax, Kimi, and more) through a single API key. OpenCode Go is a faster, lower-cost tier with a subset of high-performance models optimized for coding and reasoning workloads. Both use the same `OPENCODE_API_KEY` — your plan tier determines which models are accessible.
+
+**Step 1 — Get your API key:**
+
+Sign up at [opencode.ai](https://opencode.ai) and generate an API key from the dashboard.
+
+**Step 2 — Set the key:**
+
+```bash
+export OPENCODE_API_KEY="oc_..."
+```
+
+Or run `gsd config`, choose "Paste an API key", then select "OpenCode Zen" or "OpenCode Go".
+
+**Step 3 — Switch to an OpenCode model:**
+
+Inside a GSD session, type `/model` and select an OpenCode model. Models are prefixed with `opencode/` (e.g., `opencode/claude-sonnet-4-5`) or `opencode-go/` (e.g., `opencode-go/deepseek-v4-flash`).
 
 ### GitHub Copilot
 

@@ -33,6 +33,8 @@
 |----------|----------|----------|----------|
 | Anthropic | API key | `ANTHROPIC_API_KEY` | — |
 | OpenAI | API key | `OPENAI_API_KEY` | — |
+| OpenCode Zen | API key | `OPENCODE_API_KEY` | — |
+| OpenCode Go | API key | `OPENCODE_API_KEY` | — |
 | Google Gemini | API key | `GEMINI_API_KEY` | — |
 | OpenRouter | API key | `OPENROUTER_API_KEY` | 可选 `models.json` |
 | Groq | API key | `GROQ_API_KEY` | — |
@@ -261,6 +263,27 @@ export MISTRAL_API_KEY="..."
 ```
 
 **获取 key：** [console.mistral.ai/api-keys](https://console.mistral.ai/api-keys)
+
+<a id="opencode"></a>
+### OpenCode Zen / OpenCode Go
+
+OpenCode Zen 通过单个 API key 提供了前沿模型目录（Claude、GPT、Gemini、DeepSeek、GLM、MiniMax、Kimi 等）。OpenCode Go 是一个更快速、更低成本的层级，提供了一批专为编码和推理优化的高性能模型。两者共用同一个 `OPENCODE_API_KEY`，你的订阅计划决定了可访问的模型。
+
+**第 1 步：获取 API key**
+
+在 [opencode.ai](https://opencode.ai) 注册并在控制面板生成 key。
+
+**第 2 步：设置 key**
+
+```bash
+export OPENCODE_API_KEY="oc_..."
+```
+
+或者运行 `gsd config`，选择 "Paste an API key"，然后选择 "OpenCode Zen" 或 "OpenCode Go"。
+
+**第 3 步：切换到 OpenCode model**
+
+在 GSD 会话中输入 `/model` 并选择一个 OpenCode model。Models 都以 `opencode/`（如 `opencode/claude-sonnet-4-5`）或 `opencode-go/`（如 `opencode-go/deepseek-v4-flash`）为前缀。
 
 <a id="github-copilot"></a>
 ### GitHub Copilot

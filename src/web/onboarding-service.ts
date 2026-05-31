@@ -195,6 +195,8 @@ const REQUIRED_PROVIDER_CATALOG: RequiredProviderCatalogEntry[] = [
   { id: "alibaba-coding-plan", label: "Alibaba Coding Plan", supportsApiKey: false, supportsOAuth: false },
   { id: "alibaba-dashscope", label: "Alibaba DashScope", supportsApiKey: false, supportsOAuth: false },
   { id: "claude-code", label: "Claude Code (Local CLI)", supportsApiKey: false, supportsOAuth: false, supportsExternalCli: true, recommended: true },
+  { id: "opencode", label: "OpenCode Zen", supportsApiKey: true, supportsOAuth: false },
+  { id: "opencode-go", label: "OpenCode Go", supportsApiKey: true, supportsOAuth: false },
 ];
 
 const OPTIONAL_SECTION_CATALOG: OptionalSectionCatalogEntry[] = [
@@ -501,6 +503,10 @@ async function defaultValidateApiKey(
         "https://api.minimaxi.com/anthropic",
         "MiniMax-M2.7",
       );
+    case "opencode":
+      return await validateBearerRequest(fetchImpl, providerId, "https://opencode.ai/zen/v1/models", apiKey);
+    case "opencode-go":
+      return await validateBearerRequest(fetchImpl, providerId, "https://opencode.ai/zen/go/v1/models", apiKey);
     default:
       return { ok: false, message: `${providerId} does not support API-key validation via onboarding` };
   }

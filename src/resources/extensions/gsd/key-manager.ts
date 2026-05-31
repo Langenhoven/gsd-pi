@@ -61,6 +61,8 @@ export const PROVIDER_REGISTRY: ProviderInfo[] = [
   { id: "azure-openai-responses", label: "Azure OpenAI",      category: "llm", envVar: "AZURE_OPENAI_API_KEY" },
   { id: "alibaba-coding-plan", label: "Alibaba Coding Plan",  category: "llm", envVar: "ALIBABA_API_KEY",      dashboardUrl: "bailian.console.aliyun.com" },
   { id: "alibaba-dashscope",   label: "Alibaba DashScope",    category: "llm", envVar: "DASHSCOPE_API_KEY",    dashboardUrl: "dashscope.console.aliyun.com" },
+  { id: "opencode",            label: "OpenCode Zen",          category: "llm", envVar: "OPENCODE_API_KEY",   dashboardUrl: "opencode.ai/auth" },
+  { id: "opencode-go",         label: "OpenCode Go",           category: "llm", envVar: "OPENCODE_API_KEY",   dashboardUrl: "opencode.ai/auth" },
 
   // Tool Keys
   { id: "context7",  label: "Context7 Docs",     category: "tool", envVar: "CONTEXT7_API_KEY",  dashboardUrl: "context7.com/dashboard" },
@@ -554,6 +556,14 @@ const TEST_ENDPOINTS: Record<string, { url: string; method?: string; headers?: (
   },
   openrouter: {
     url: "https://openrouter.ai/api/v1/models",
+    headers: (key) => ({ Authorization: `Bearer ${key}` }),
+  },
+  opencode: {
+    url: "https://opencode.ai/zen/v1/models",
+    headers: (key) => ({ Authorization: `Bearer ${key}` }),
+  },
+  "opencode-go": {
+    url: "https://opencode.ai/zen/go/v1/models",
     headers: (key) => ({ Authorization: `Bearer ${key}` }),
   },
 };
