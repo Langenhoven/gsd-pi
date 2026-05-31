@@ -72,11 +72,11 @@
 
 ## 8. Verification
 
-- [ ] 8.1 Verify `web_search` tool works end-to-end: start the MCP server, send a `tools/call` request for `web_search` with query "TypeScript 5", and confirm results are returned as structured content with `title`, `url`, and `snippet`
-- [ ] 8.2 Verify `web_search` rate limiting: send 2 search requests in rapid succession (within 1 second), confirm the second returns `errorKind: "rate_limited"` with `retryAfterMs`
-- [ ] 8.3 Verify `web_search_fetch` tool: call it with a known URL (e.g., `example.com`), confirm readable content is returned with `content`, `contentType`, `contentLength`
-- [ ] 8.4 Verify `web_search_fetch` content truncation: call with `max_content_length: 500` on a page longer than 500 chars, confirm `truncated: true`
-- [ ] 8.5 Verify tool registration: confirm `web_search` and `web_search_fetch` appear in the MCP server's `tools/list` response with correct schemas
-- [ ] 8.6 Verify native search awareness: configure an Anthropic provider, confirm MCP `web_search` is hidden when native search is active; switch to OpenAI, confirm tools reappear
-- [ ] 8.7 Verify existing search providers are untouched: confirm `search-the-web` extension tools remain functional with Brave/Tavily/Ollama keys
-- [ ] 8.8 Verify no credential leaks: confirm the MCP server does NOT require or check for any API keys in environment variables
+- [x] 8.1 Verify `web_search` tool works end-to-end: start the MCP server, send a `tools/call` request for `web_search` with query "TypeScript 5", and confirm results are returned as structured content with `title`, `url`, and `snippet`
+- [x] 8.2 Verify `web_search` rate limiting: send 2 search requests in rapid succession (within 1 second), confirm the second returns `errorKind: "rate_limited"` with `retryAfterMs`
+- [x] 8.3 Verify `web_search_fetch` tool: call it with a known URL (e.g., `example.com`), confirm readable content is returned with `content`, `contentType`, `contentLength`
+- [x] 8.4 Verify `web_search_fetch` content truncation: call with `max_content_length: 500` on a page longer than 500 chars, confirm `truncated: true`
+- [x] 8.5 Verify tool registration: confirm `web_search` and `web_search_fetch` appear in the MCP server's `tools/list` response with correct schemas
+- [x] 8.6 Verify native search awareness: configure an Anthropic provider, confirm MCP `web_search` is hidden when native search is active; switch to OpenAI, confirm tools reappear
+- [x] 8.7 Verify existing search providers are untouched: confirm `search-the-web` extension tools remain functional with Brave/Tavily/Ollama keys
+- [x] 8.8 Verify no credential leaks: confirm the MCP server does NOT require or check for any API keys in environment variables
